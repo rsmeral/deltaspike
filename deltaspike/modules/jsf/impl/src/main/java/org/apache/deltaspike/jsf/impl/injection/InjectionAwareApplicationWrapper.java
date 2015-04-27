@@ -19,7 +19,7 @@
 package org.apache.deltaspike.jsf.impl.injection;
 
 import org.apache.deltaspike.core.util.ProxyUtils;
-import org.apache.deltaspike.jsf.api.config.JsfModuleConfig;
+import org.apache.deltaspike.jsf.api.config.base.JsfBaseConfig;
 import org.apache.deltaspike.jsf.impl.security.SecurityAwareViewHandler;
 
 import javax.faces.FacesException;
@@ -41,12 +41,12 @@ public class InjectionAwareApplicationWrapper extends ApplicationWrapper
     private final boolean fullStateSavingFallbackEnabled;
 
     public InjectionAwareApplicationWrapper(
-        Application wrapped, JsfModuleConfig jsfModuleConfig, boolean preDestroyViewMapEventFilterMode)
+        Application wrapped, boolean preDestroyViewMapEventFilterMode)
     {
         this.wrapped = wrapped;
-        this.containerManagedConvertersEnabled = jsfModuleConfig.isContainerManagedConvertersEnabled();
-        this.containerManagedValidatorsEnabled = jsfModuleConfig.isContainerManagedValidatorsEnabled();
-        this.fullStateSavingFallbackEnabled = jsfModuleConfig.isFullStateSavingFallbackEnabled();
+        this.containerManagedConvertersEnabled = JsfBaseConfig.CONTAINER_MANAGED_CONVERTERS_ENABLED.getValue();
+        this.containerManagedValidatorsEnabled = JsfBaseConfig.CONTAINER_MANAGED_VALIDATORS_ENABLED.getValue();
+        this.fullStateSavingFallbackEnabled = JsfBaseConfig.FULL_STATE_SAVING_FALLBACK_ENABLED.getValue();
         this.preDestroyViewMapEventFilterMode = preDestroyViewMapEventFilterMode;
     }
 

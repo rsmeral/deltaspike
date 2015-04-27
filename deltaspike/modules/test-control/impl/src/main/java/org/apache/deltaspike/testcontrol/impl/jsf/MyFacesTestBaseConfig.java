@@ -18,9 +18,10 @@
  */
 package org.apache.deltaspike.testcontrol.impl.jsf;
 
+import org.apache.deltaspike.core.api.config.DeltaSpikeConfig;
 import org.apache.deltaspike.core.api.config.base.TypedConfig;
 
-public interface MyFacesTestBaseConfig
+public interface MyFacesTestBaseConfig extends DeltaSpikeConfig
 {
     TypedConfig<String> WEBAPP_RESOURCE_PATH =
         new TypedConfig<String>("deltaspike.testcontrol.mf.test.webapp_resource_path", "");

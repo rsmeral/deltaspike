@@ -18,12 +18,15 @@
  */
 package org.apache.deltaspike.jsf.api.config.base;
 
+import org.apache.deltaspike.core.api.config.DeltaSpikeConfig;
 import org.apache.deltaspike.core.api.config.base.CoreBaseConfig;
 import org.apache.deltaspike.core.api.config.base.TypedConfig;
 import org.apache.deltaspike.jsf.api.config.view.Folder;
 import org.apache.deltaspike.jsf.api.config.view.View;
 
-public interface JsfBaseConfig
+import javax.enterprise.inject.Default;
+
+public interface JsfBaseConfig extends DeltaSpikeConfig
 {
     interface ViewConfig
     {
@@ -58,4 +61,28 @@ public interface JsfBaseConfig
                 new TypedConfig<Boolean>("deltaspike.scope.view.delegate", Boolean.TRUE);
         }
     }
+
+    TypedConfig<Boolean> INITIAL_REDIRECT_ENABLED =
+            new TypedConfig<Boolean>("deltaspike.jsf.initial_redirect_enabled", true);
+
+    TypedConfig<Boolean> ALWAYS_KEEP_MESSAGES =
+            new TypedConfig<Boolean>("deltaspike.jsf.always_keep_messages", true);
+
+    TypedConfig<Boolean> ALWAYS_USE_NAVIGATION_HANDLER_ON_SECURITY_VIOLATION =
+            new TypedConfig<Boolean>("deltaspike.jsf.always_use_navigation_handler_on_security_violation", false);
+
+    TypedConfig<Boolean> CONTAINER_MANAGED_CONVERTERS_ENABLED =
+            new TypedConfig<Boolean>("deltaspike.jsf.container_managed_converters_enabled", true);
+
+    TypedConfig<Boolean> CONTAINER_MANAGED_VALIDATORS_ENABLED =
+            new TypedConfig<Boolean>("deltaspike.jsf.container_managed_validators_enabled", true);
+
+    TypedConfig<Boolean> FULL_STATE_SAVING_FALLBACK_ENABLED =
+            new TypedConfig<Boolean>("deltaspike.jsf.full_state_saving_fallback_enabled", true);
+
+    TypedConfig<Boolean> ALLOW_POST_REQUEST_WITHOUT_DOUBLE_SUBMIT_PREVENTION =
+            new TypedConfig<Boolean>("deltaspike.jsf.allow_post_request_without_double_submit_prevention", true);
+
+    TypedConfig<Class> EXCEPTION_QUALIFIER =
+            new TypedConfig<Class>("deltaspike.jsf.exception_qualifier", Default.class);
 }

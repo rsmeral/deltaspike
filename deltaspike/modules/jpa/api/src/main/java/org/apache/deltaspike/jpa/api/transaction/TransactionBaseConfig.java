@@ -19,14 +19,16 @@
 package org.apache.deltaspike.jpa.api.transaction;
 
 import org.apache.deltaspike.core.api.config.DeltaSpikeConfig;
+import org.apache.deltaspike.core.api.config.base.TypedConfig;
 
 /**
  * Optional config for transactions
  */
-public interface TransactionConfig extends DeltaSpikeConfig
+public interface TransactionBaseConfig extends DeltaSpikeConfig
 {
     /**
      * @return timeout in seconds or null
      */
-    Integer getUserTransactionTimeoutInSeconds();
+    TypedConfig<Integer> USER_TRANSACTION_TIMEOUT_SECONDS =
+            new TypedConfig<Integer>("deltaspike.jpa.user_transaction_timeout_seconds", null);
 }

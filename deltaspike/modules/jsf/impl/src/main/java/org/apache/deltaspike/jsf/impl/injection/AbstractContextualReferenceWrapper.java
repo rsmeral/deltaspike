@@ -20,7 +20,7 @@ package org.apache.deltaspike.jsf.impl.injection;
 
 import org.apache.deltaspike.core.api.provider.BeanProvider;
 import org.apache.deltaspike.core.util.ClassUtils;
-import org.apache.deltaspike.jsf.api.config.JsfModuleConfig;
+import org.apache.deltaspike.jsf.api.config.base.JsfBaseConfig;
 
 import javax.faces.FacesWrapper;
 import javax.faces.component.PartialStateHolder;
@@ -73,7 +73,7 @@ abstract class AbstractContextualReferenceWrapper<T> implements PartialStateHold
         if (this.fullStateSavingFallbackEnabled == null)
         {
             this.fullStateSavingFallbackEnabled =
-                BeanProvider.getContextualReference(JsfModuleConfig.class).isFullStateSavingFallbackEnabled();
+                    JsfBaseConfig.FULL_STATE_SAVING_FALLBACK_ENABLED.getValue();
         }
 
         if (this.wrapped instanceof StateHolder)

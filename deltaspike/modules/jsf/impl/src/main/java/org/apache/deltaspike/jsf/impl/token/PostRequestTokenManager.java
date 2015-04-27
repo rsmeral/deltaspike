@@ -19,9 +19,8 @@
 package org.apache.deltaspike.jsf.impl.token;
 
 import org.apache.deltaspike.core.api.scope.WindowScoped;
-import org.apache.deltaspike.jsf.api.config.JsfModuleConfig;
+import org.apache.deltaspike.jsf.api.config.base.JsfBaseConfig;
 
-import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.UUID;
@@ -36,14 +35,10 @@ public class PostRequestTokenManager implements Serializable
 
     private boolean allowPostRequestWithoutDoubleSubmitPrevention = true;
 
-    protected PostRequestTokenManager()
+    public PostRequestTokenManager()
     {
-    }
-
-    @Inject
-    public PostRequestTokenManager(JsfModuleConfig config)
-    {
-        this.allowPostRequestWithoutDoubleSubmitPrevention = config.isAllowPostRequestWithoutDoubleSubmitPrevention();
+        this.allowPostRequestWithoutDoubleSubmitPrevention =
+                JsfBaseConfig.ALLOW_POST_REQUEST_WITHOUT_DOUBLE_SUBMIT_PREVENTION.getValue();
     }
 
     public void createNewToken()

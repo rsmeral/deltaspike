@@ -23,7 +23,7 @@ import org.apache.deltaspike.core.api.config.view.metadata.ViewConfigResolver;
 import org.apache.deltaspike.core.api.provider.BeanManagerProvider;
 import org.apache.deltaspike.core.api.provider.BeanProvider;
 import org.apache.deltaspike.core.util.ClassDeactivationUtils;
-import org.apache.deltaspike.jsf.api.config.JsfModuleConfig;
+import org.apache.deltaspike.jsf.api.config.base.JsfBaseConfig;
 import org.apache.deltaspike.jsf.impl.config.view.DefaultErrorViewAwareExceptionHandlerWrapper;
 import org.apache.deltaspike.jsf.impl.injection.InjectionAwareApplicationWrapper;
 import org.apache.deltaspike.jsf.impl.message.FacesMessageEntry;
@@ -59,8 +59,6 @@ class DeltaSpikeFacesContextWrapper extends FacesContextWrapper
     private Annotation bridgeExceptionQualifier;
 
     private ExternalContext wrappedExternalContext;
-
-    private JsfModuleConfig jsfModuleConfig;
 
     private volatile Boolean initialized;
     private volatile Boolean isNavigationAwareApplicationWrapperActivated;
@@ -143,7 +141,6 @@ class DeltaSpikeFacesContextWrapper extends FacesContextWrapper
         if (this.initialized == null)
         {
             this.beanManager = BeanManagerProvider.getInstance().getBeanManager();
-            this.jsfModuleConfig = BeanProvider.getContextualReference(this.beanManager, JsfModuleConfig.class, false);
 
             if (ClassDeactivationUtils.isActivated(JsfRequestBroadcaster.class))
             {
@@ -161,7 +158,7 @@ class DeltaSpikeFacesContextWrapper extends FacesContextWrapper
             this.bridgeExceptionHandlerActivated =
                     ClassDeactivationUtils.isActivated(BridgeExceptionHandlerWrapper.class);
             
-            this.bridgeExceptionQualifier = AnnotationInstanceProvider.of(jsfModuleConfig.getExceptionQualifier());
+            this.bridgeExceptionQualifier = AnnotationInstanceProvider.of(JsfBaseConfig.EXCEPTION_QUALIFIER.getValue());
 
             this.preDestroyViewMapEventFilterMode = ClassDeactivationUtils.isActivated(SecurityAwareViewHandler.class);
             this.isNavigationAwareApplicationWrapperActivated =
@@ -214,7 +211,7 @@ class DeltaSpikeFacesContextWrapper extends FacesContextWrapper
             wrappedApplication = new NavigationHandlerAwareApplication(wrappedApplication);
         }
         return new InjectionAwareApplicationWrapper(
-            wrappedApplication, this.jsfModuleConfig, this.preDestroyViewMapEventFilterMode);
+            wrappedApplication, this.preDestroyViewMapEventFilterMode);
     }
 
     @Override

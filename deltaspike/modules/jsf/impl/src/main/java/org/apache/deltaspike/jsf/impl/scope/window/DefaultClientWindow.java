@@ -19,7 +19,7 @@
 package org.apache.deltaspike.jsf.impl.scope.window;
 
 import org.apache.deltaspike.core.spi.scope.window.WindowContext;
-import org.apache.deltaspike.jsf.api.config.JsfModuleConfig;
+import org.apache.deltaspike.jsf.api.config.base.JsfBaseConfig;
 import org.apache.deltaspike.jsf.impl.util.ClientWindowHelper;
 import org.apache.deltaspike.jsf.impl.util.JsfUtils;
 import org.apache.deltaspike.jsf.spi.scope.window.ClientWindow;
@@ -101,9 +101,6 @@ public class DefaultClientWindow implements ClientWindow
     private ClientWindowConfig clientWindowConfig;
 
     @Inject
-    private JsfModuleConfig jsfModuleConfig;
-
-    @Inject
     private WindowContext windowContext;
 
     private int maxWindowIdCount = 10;
@@ -160,7 +157,7 @@ public class DefaultClientWindow implements ClientWindow
 
             if (StringUtils.isEmpty(windowId))
             {
-                if (this.jsfModuleConfig.isInitialRedirectEnabled())
+                if (JsfBaseConfig.INITIAL_REDIRECT_ENABLED.getValue())
                 {
                     ClientWindowHelper.handleInitialRedirect(facesContext, generateNewWindowId());
                     facesContext.responseComplete();

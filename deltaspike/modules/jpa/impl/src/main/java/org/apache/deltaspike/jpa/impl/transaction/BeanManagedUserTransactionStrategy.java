@@ -18,10 +18,9 @@
  */
 package org.apache.deltaspike.jpa.impl.transaction;
 
-import org.apache.deltaspike.core.api.provider.BeanProvider;
 import org.apache.deltaspike.core.impl.util.JndiUtils;
 import org.apache.deltaspike.core.util.ExceptionUtils;
-import org.apache.deltaspike.jpa.api.transaction.TransactionConfig;
+import org.apache.deltaspike.jpa.api.transaction.TransactionBaseConfig;
 import org.apache.deltaspike.jpa.impl.transaction.context.EntityManagerEntry;
 
 import javax.annotation.Resource;
@@ -56,8 +55,6 @@ public class BeanManagedUserTransactionStrategy extends ResourceLocalTransaction
     private static final long serialVersionUID = -2432802805095533499L;
 
     private static final Logger LOGGER = Logger.getLogger(BeanManagedUserTransactionStrategy.class.getName());
-
-    private transient TransactionConfig transactionConfig;
 
     @Resource
     private UserTransaction userTransaction;
@@ -97,41 +94,7 @@ public class BeanManagedUserTransactionStrategy extends ResourceLocalTransaction
 
     protected Integer getDefaultTransactionTimeoutInSeconds()
     {
-        if (this.transactionConfig == null)
-        {
-            lazyInit();
-        }
-
-        return transactionConfig.getUserTransactionTimeoutInSeconds();
-    }
-
-    protected synchronized void lazyInit()
-    {
-        if (this.transactionConfig != null)
-        {
-            return;
-        }
-
-        this.transactionConfig = BeanProvider.getContextualReference(TransactionConfig.class, true);
-
-        if (this.transactionConfig == null)
-        {
-            this.transactionConfig = createDefaultTransactionConfig();
-        }
-    }
-
-    protected TransactionConfig createDefaultTransactionConfig()
-    {
-        return new TransactionConfig()
-        {
-            private static final long serialVersionUID = -3915439087580270117L;
-
-            @Override
-            public Integer getUserTransactionTimeoutInSeconds()
-            {
-                return null;
-            }
-        };
+        return TransactionBaseConfig.USER_TRANSACTION_TIMEOUT_SECONDS.getValue();
     }
 
     @Override

@@ -23,7 +23,6 @@ import org.apache.deltaspike.core.api.provider.BeanProvider;
 import org.apache.deltaspike.core.api.config.view.navigation.NavigationParameterContext;
 import org.apache.deltaspike.core.util.ClassUtils;
 import org.apache.deltaspike.jsf.api.config.base.JsfBaseConfig;
-import org.apache.deltaspike.jsf.api.config.JsfModuleConfig;
 import org.apache.deltaspike.jsf.impl.listener.phase.WindowMetaData;
 import org.apache.deltaspike.jsf.impl.message.FacesMessageEntry;
 
@@ -264,9 +263,8 @@ public abstract class JsfUtils
 
     public static void saveFacesMessages(ExternalContext externalContext)
     {
-        JsfModuleConfig jsfModuleConfig = BeanProvider.getContextualReference(JsfModuleConfig.class);
 
-        if (!jsfModuleConfig.isAlwaysKeepMessages())
+        if (!JsfBaseConfig.ALWAYS_KEEP_MESSAGES.getValue())
         {
             return;
         }
@@ -297,9 +295,8 @@ public abstract class JsfUtils
 
     public static void tryToRestoreMessages(FacesContext facesContext)
     {
-        JsfModuleConfig jsfModuleConfig = BeanProvider.getContextualReference(JsfModuleConfig.class);
 
-        if (!jsfModuleConfig.isAlwaysKeepMessages())
+        if (!JsfBaseConfig.ALWAYS_KEEP_MESSAGES.getValue())
         {
             return;
         }
