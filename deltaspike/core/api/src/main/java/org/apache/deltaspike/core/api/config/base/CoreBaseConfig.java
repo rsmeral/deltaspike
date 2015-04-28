@@ -18,7 +18,9 @@
  */
 package org.apache.deltaspike.core.api.config.base;
 
-public interface CoreBaseConfig
+import org.apache.deltaspike.core.api.config.DeltaSpikeBaseConfig;
+
+public interface CoreBaseConfig extends DeltaSpikeBaseConfig
 {
     interface BeanManagerDelegation
     {
